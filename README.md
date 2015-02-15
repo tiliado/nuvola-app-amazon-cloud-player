@@ -23,5 +23,6 @@ Copyright
 ---------
 
   - Copyright 2014 Jiří Janoušek <janousek.jiri@gmail.com>
+  - Copyright 2014 Stephen Herbein
   - Copyright 2012 Alexander King (src/icon.svg)
   - License: [2-Clause BSD-license](./LICENSE)

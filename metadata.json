@@ -1,11 +1,12 @@
 {
     "id": "amazon_cloud_player",
     "name": "Amazon Cloud Player",
-    "maintainer_name": "Michael Mims?",
-    "maintainer_link": "https://github.com/FIXME",
+    "maintainer_name": "Stephen Herbein",
+    "maintainer_link": "https://github.com/SteVwonder",
     "version_major": 5,
     "version_minor": 0,
     "api_major": 3,
     "api_minor": 0,
-    "categories": "AudioVideo;Audio;"
+    "categories": "AudioVideo;Audio;",
+    "home_url": "https://www.amazon.com/gp/dmusic/cloudplayer/player"
 }
