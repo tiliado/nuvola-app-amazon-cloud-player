@@ -153,18 +153,12 @@ WebApp._onActionActivated = function(emitter, name, param)
     {
     /* Base media player actions */
     case PlayerAction.TOGGLE_PLAY:
-        if (play_pause) {
-            Nuvola.log("Attempting to toggle play");
+        if (play_pause)
             Nuvola.clickOnElement(play_pause);
-            Nuvola.log("Toggled play");
-        }
         break;
     case PlayerAction.PLAY:
-        if (this.state != PlaybackState.PLAYING && play_pause) {
-            Nuvola.log("Attempting to play");
+        if (this.state != PlaybackState.PLAYING && play_pause)
             Nuvola.clickOnElement(play_pause);
-            Nuvola.log("Clicked play");
-        }
         break;
     case PlayerAction.PAUSE:
     case PlayerAction.STOP:
