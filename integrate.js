@@ -50,7 +50,7 @@ WebApp._onInitWebWorker = function(emitter)
 // Page is ready for magic
 WebApp._onPageReady = function()
 {
-    //TODO: only set this after the user has logged in
+    // TODO: only set this after the user has logged in
     // Connect handler for signal ActionActivated
     Nuvola.actions.connect("ActionActivated", this);
 
@@ -60,16 +60,13 @@ WebApp._onPageReady = function()
 
 WebApp.getMP3Player = function()
 {
-    var mp3_player = null;
-    try
-    {
-        mp3_player = document.getElementById("mp3Player");
+    var mp3Player;
+    try {
+        mp3Player = document.getElementById("mp3Player");
+    } catch (e) {
+        mp3Player = document;
     }
-    catch (e)
-    {
-        mp3_player = document;
-    }
-    return mp3_player;
+    return mp3Player;
 }
 
 // Extract data from the web page
@@ -82,42 +79,29 @@ WebApp.update = function()
         artLocation: null
     }
 
-    var player_root = this.getMP3Player();
+    var playerRoot = this.getMP3Player();
  
-    try
-    {
-        var songDetails = player_root.getElementsByClassName("currentSongDetails")[0];
+    try {
+        var songDetails = playerRoot.getElementsByClassName("currentSongDetails")[0];
         track.title = songDetails.getElementsByClassName("title")[0].innerText;
         track.artist = songDetails.getElementsByClassName("artistLink")[0].innerText;
-    }
-    catch (e)
-    {
-    }
+    } catch (e) {}
 
-    try
-    {
-        var albumImage = player_root.getElementsByClassName("albumImage")[0];
+    try {
+        var albumImage = playerRoot.getElementsByClassName("albumImage")[0];
         track.artLocation = albumImage.src;
         if (track.album === null)
             track.album = albumImage.title;
-    }
-    catch (e)
-    {
-    }
+    } catch (e) {}
 
-    try
-    {
+    try {
         player.setTrack(track);
-    }
-    catch (e)
-    {
-    }
+    } catch (e) {}
 
     this.state = PlaybackState.UNKNOWN;
     var prevSong, nextSong;
-    try
-    {
-        var groupClassList = player_root.getElementsByClassName("mp3MasterPlayGroup")[0].classList;
+    try {
+        var groupClassList = playerRoot.getElementsByClassName("mp3MasterPlayGroup")[0].classList;
 
         if (groupClassList.contains("playing")) {
             this.state = PlaybackState.PLAYING;
@@ -127,23 +111,17 @@ WebApp.update = function()
 
         nextSong = groupClassList.contains("hasNext");
         prevSong = groupClassList.contains("hasPrevious");
-    }
-    catch (e)
-    {
+    } catch (e) {
         prevSong = nextSong = false;
     }
 
-    try
-    {
+    try {
         player.setPlaybackState(this.state);
         player.setCanPause(this.state === PlaybackState.PLAYING);
         player.setCanPlay(this.state === PlaybackState.PAUSED);
         player.setCanGoPrev(prevSong);
         player.setCanGoNext(nextSong);
-    }
-    catch (e)
-    {
-    }
+    } catch (e) {}
 
     // Schedule the next update
     setTimeout(this.update.bind(this), 500);
@@ -151,44 +129,41 @@ WebApp.update = function()
 
 WebApp._onActionActivated = function(emitter, name, param)
 {
-    var player_root = this.getMP3Player();
-    var playGroup = player_root.getElementsByClassName("mp3MasterPlayGroup")[0];
-    if (playGroup)
-    {
-        var prev_song = playGroup.getElementsByClassName("mp3PlayPrevious")[0];
-        var play_pause = playGroup.getElementsByClassName("mp3MasterPlay")[0];
-        var next_song = playGroup.getElementsByClassName("mp3PlayNext")[0];
-    }
-    else
-    {
-        var prev_song = null;
-        var play_pause = null;
-        var next_song = null;
+    var playerRoot = this.getMP3Player();
+    var playGroup = playerRoot.getElementsByClassName("mp3MasterPlayGroup")[0];
+
+    if (playGroup) {
+        var prevSong = playGroup.getElementsByClassName("mp3PlayPrevious")[0];
+        var playPause = playGroup.getElementsByClassName("mp3MasterPlay")[0];
+        var nextSong = playGroup.getElementsByClassName("mp3PlayNext")[0];
+    } else {
+        var prevSong = null;
+        var playPause = null;
+        var nextSong = null;
     }
     
-    switch (name)
-    {
+    switch (name) {
     /* Base media player actions */
     case PlayerAction.TOGGLE_PLAY:
-        if (play_pause)
-            Nuvola.clickOnElement(play_pause);
+        if (playPause)
+            Nuvola.clickOnElement(playPause);
         break;
     case PlayerAction.PLAY:
-        if (this.state != PlaybackState.PLAYING && play_pause)
-            Nuvola.clickOnElement(play_pause);
+        if (this.state != PlaybackState.PLAYING && playPause)
+            Nuvola.clickOnElement(playPause);
         break;
     case PlayerAction.PAUSE:
     case PlayerAction.STOP:
-        if (this.state == PlaybackState.PLAYING && play_pause)
-            Nuvola.clickOnElement(play_pause);
+        if (this.state == PlaybackState.PLAYING && playPause)
+            Nuvola.clickOnElement(playPause);
         break;
     case PlayerAction.PREV_SONG:
-        if (prev_song)
-            Nuvola.clickOnElement(prev_song);
+        if (prevSong)
+            Nuvola.clickOnElement(prevSong);
         break;
     case PlayerAction.NEXT_SONG:
-        if (next_song)
-            Nuvola.clickOnElement(next_song);
+        if (nextSong)
+            Nuvola.clickOnElement(nextSong);
         break;
     }
 }
