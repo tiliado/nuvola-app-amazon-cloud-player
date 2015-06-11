@@ -80,23 +80,22 @@ WebApp.update = function()
     }
 
     var playerRoot = this.getMP3Player();
- 
+
     try {
         var songDetails = playerRoot.getElementsByClassName("currentSongDetails")[0];
         track.title = songDetails.getElementsByClassName("title")[0].innerText;
         track.artist = songDetails.getElementsByClassName("artistLink")[0].innerText;
-    } catch (e) {}
 
-    try {
         var albumImage = playerRoot.getElementsByClassName("albumImage")[0];
         track.artLocation = albumImage.src;
         if (track.album === null)
             track.album = albumImage.title;
-    } catch (e) {}
+    } catch (e) {
+        console.log("Failed to get track info");
+        console.log(e.message);
+    }
 
-    try {
-        player.setTrack(track);
-    } catch (e) {}
+    player.setTrack(track);
 
     this.state = PlaybackState.UNKNOWN;
     var prevSong, nextSong;
