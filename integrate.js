@@ -91,8 +91,8 @@ WebApp.update = function()
         if (track.album === null)
             track.album = albumImage.title;
     } catch (e) {
-        console.log("Failed to get track info");
-        console.log(e.message);
+        //~ console.log("Failed to get track info");
+        //~ console.log(e.message);
     }
 
     player.setTrack(track);
