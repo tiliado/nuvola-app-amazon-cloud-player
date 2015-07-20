@@ -1,5 +1,3 @@
-*This web app integration script is only a template. It doesn't work.*
-
 Amazon Cloud Player for Nuvola Player 3
 =======================================
 
@@ -22,6 +20,7 @@ Installation
 Copyright
 ---------
 
-  - Copyright 2014 Jiří Janoušek <janousek.jiri@gmail.com>
+  - Copyright 2015 Stephen Herbein <stephen272@gmail.com>
+  - Copyright 2014-2015 Jiří Janoušek <janousek.jiri@gmail.com>
   - Copyright 2012 Alexander King (src/icon.svg)
   - License: [2-Clause BSD-license](./LICENSE)
