@@ -1,5 +1,6 @@
 /*
  * Copyright 2015 Stephen Herbein <stephen272@gmail.com>
+ * Copyright 2015 Steffen Coenen <steffen@steffen-coenen.de>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met: 
@@ -27,6 +28,19 @@
 (function(Nuvola)
 {
 
+// Translations
+var _ = Nuvola.Translate.gettext;
+var C_ = Nuvola.Translate.pgettext;
+
+var COUNTRY_VARIANT = "app.country_variant";
+var HOME_PAGE = "http://www.amazon.{1}/gp/dmusic/mp3/player";
+var COUNTRY_VARIANTS = [
+    ["de", C_("Amazon variant", "Germany")],
+    ["fr", C_("Amazon variant", "France")],
+    ["co.uk", C_("Amazon variant", "United Kingdom")],
+    ["com", C_("Amazon variant", "United States")]
+];
+
 // Create media player component
 var player = Nuvola.$object(Nuvola.MediaPlayer);
 
@@ -41,10 +55,11 @@ var WebApp = Nuvola.$WebApp();
 WebApp._onInitWebWorker = function(emitter)
 {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter);
-
+    Nuvola.config.setDefault(COUNTRY_VARIANT, "");
     this.state = PlaybackState.UNKNOWN;
 
     document.addEventListener("DOMContentLoaded", this._onPageReady.bind(this));
+    Nuvola.core.connect("InitializationForm", this);
 }
 
 // Page is ready for magic
@@ -56,6 +71,39 @@ WebApp._onPageReady = function()
 
     // Start update routine
     this.update();
+}
+
+WebApp._onInitializationForm = function(emitter, values, entries)
+{
+    if (!Nuvola.config.hasKey(COUNTRY_VARIANT))
+        this.appendPreferences(values, entries);
+}
+
+WebApp.appendPreferences = function(values, entries)
+{
+    values[COUNTRY_VARIANT] = Nuvola.config.get(COUNTRY_VARIANT);
+    entries.push(["header", _("Amazon Cloud Player")]);
+    entries.push(["label", _("Preferred national variant")]);
+    for (var i = 0; i < COUNTRY_VARIANTS.length; i++)
+        entries.push(["option", COUNTRY_VARIANT, COUNTRY_VARIANTS[i][0], COUNTRY_VARIANTS[i][1]]);
+}
+
+
+WebApp._onInitAppRunner = function(emitter)
+{
+    Nuvola.core.connect("InitializationForm", this);
+    Nuvola.core.connect("PreferencesForm", this);
+}
+
+WebApp._onPreferencesForm = function(emitter, values, entries)
+{
+    this.appendPreferences(values, entries);
+}
+
+
+WebApp._onHomePageRequest = function(emitter, result)
+{
+    result.url = Nuvola.format(HOME_PAGE, Nuvola.config.get(COUNTRY_VARIANT));
 }
 
 WebApp.getMP3Player = function()

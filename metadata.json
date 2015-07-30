@@ -8,6 +8,5 @@
     "api_major": 3,
     "api_minor": 0,
     "categories": "AudioVideo;Audio;",
-    "home_url": "https://www.amazon.com/gp/dmusic/cloudplayer/player",
-    "allowed_uri" : "^https?://www.amazon.com/gp/dmusic/cloudplayer/player#?.*$"
+    "allowed_uri" : "^https?://www.amazon.[a-z.]+/gp/dmusic/cloudplayer/player#?.*$"
 }
