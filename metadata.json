@@ -7,5 +7,6 @@
     "version_minor": 0,
     "api_major": 3,
     "api_minor": 0,
-    "categories": "AudioVideo;Audio;"
+    "categories": "AudioVideo;Audio;",
+    "allowed_uri" : "^https?://www.amazon.[a-z.]+/gp/dmusic/cloudplayer/player#?.*$"
 }
