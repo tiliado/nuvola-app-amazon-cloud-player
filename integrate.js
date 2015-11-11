@@ -131,8 +131,8 @@ WebApp.update = function()
 
     try {
         var songDetails = playerRoot.getElementsByClassName("currentSongDetails")[0];
-        track.title = songDetails.getElementsByClassName("title")[0].innerText;
-        track.artist = songDetails.getElementsByClassName("artistLink")[0].innerText;
+        track.title = songDetails.getElementsByClassName("title")[0].textContent;
+        track.artist = songDetails.getElementsByClassName("artistLink")[0].textContent;
 
         var albumImage = playerRoot.getElementsByClassName("albumImage")[0];
         track.artLocation = albumImage.src;
