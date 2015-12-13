@@ -145,72 +145,83 @@ WebApp.update = function()
 
     player.setTrack(track);
 
-    this.state = PlaybackState.UNKNOWN;
-    var prevSong, nextSong;
-    try {
-        var groupClassList = playerRoot.getElementsByClassName("mp3MasterPlayGroup")[0].classList;
+    var playButton = this._getPlayButton();
+    var pauseButton = this._getPauseButton();
+    if (pauseButton)
+        this.state = PlaybackState.PLAYING;
+    else if (playButton)
+        this.state = PlaybackState.PAUSED;
+    else
+        this.state = PlaybackState.UNKNOWN;
 
-        if (groupClassList.contains("playing")) {
-            this.state = PlaybackState.PLAYING;
-        } else if (groupClassList.contains("paused")) {
-            this.state = PlaybackState.PAUSED;
-        } 
-
-        nextSong = groupClassList.contains("hasNext");
-        prevSong = groupClassList.contains("hasPrevious");
-    } catch (e) {
-        prevSong = nextSong = false;
-    }
-
-    try {
-        player.setPlaybackState(this.state);
-        player.setCanPause(this.state === PlaybackState.PLAYING);
-        player.setCanPlay(this.state === PlaybackState.PAUSED);
-        player.setCanGoPrev(prevSong);
-        player.setCanGoNext(nextSong);
-    } catch (e) {}
-
+    
+    player.setPlaybackState(this.state);
+    player.setCanPause(!!pauseButton);
+    player.setCanPlay(!!playButton);
+    player.setCanGoPrev(!!this._getPrevButton);
+    player.setCanGoNext(!!this._getNextButton);
+    
     // Schedule the next update
     setTimeout(this.update.bind(this), 500);
 }
 
+WebApp._getButton = function(selector)
+{
+    var elm = document.querySelector(selector);
+    return elm ? (elm.classList.contains("disabled") ? null : elm) : null;
+}
+
+WebApp._getPlayButton = function()
+{
+    return this._getButton(".playButton.playerIconPlay");
+}
+
+WebApp._getPauseButton = function()
+{
+    return this._getButton(".playButton.playerIconPause");
+}
+
+WebApp._getPrevButton = function()
+{
+    return this._getButton(".previousButton");
+}
+
+WebApp._getNextButton = function()
+{
+    return this._getButton(".nextButton");
+}
+
 WebApp._onActionActivated = function(emitter, name, param)
 {
-    var playerRoot = this.getMP3Player();
-    var playGroup = playerRoot.getElementsByClassName("mp3MasterPlayGroup")[0];
-
-    if (playGroup) {
-        var prevSong = playGroup.getElementsByClassName("mp3PlayPrevious")[0];
-        var playPause = playGroup.getElementsByClassName("mp3MasterPlay")[0];
-        var nextSong = playGroup.getElementsByClassName("mp3PlayNext")[0];
-    } else {
-        var prevSong = null;
-        var playPause = null;
-        var nextSong = null;
-    }
-    
     switch (name) {
     /* Base media player actions */
     case PlayerAction.TOGGLE_PLAY:
-        if (playPause)
-            Nuvola.clickOnElement(playPause);
+        var button = this._getPauseButton();
+        if (!button)
+            button = this._getPlayButton(); 
+        if (button)
+            Nuvola.clickOnElement(button);
         break;
     case PlayerAction.PLAY:
-        if (this.state != PlaybackState.PLAYING && playPause)
-            Nuvola.clickOnElement(playPause);
+        var button = this._getPlayButton();
+        if (button)
+            Nuvola.clickOnElement(button);
         break;
     case PlayerAction.PAUSE:
     case PlayerAction.STOP:
-        if (this.state == PlaybackState.PLAYING && playPause)
-            Nuvola.clickOnElement(playPause);
+        var button = this._getPauseButton();
+        if (button)
+            Nuvola.clickOnElement(button);
         break;
     case PlayerAction.PREV_SONG:
-        if (prevSong)
-            Nuvola.clickOnElement(prevSong);
+        var button = this._getPrevButton();
+        if (button)
+            Nuvola.clickOnElement(button);
         break;
     case PlayerAction.NEXT_SONG:
-        if (nextSong)
-            Nuvola.clickOnElement(nextSong);
+        var button = this._getNextButton();
+        if (button)
+            Nuvola.clickOnElement(button);
         break;
     }
 }
