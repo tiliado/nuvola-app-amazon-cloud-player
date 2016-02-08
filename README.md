@@ -8,6 +8,7 @@ Support
 -------
 
 Report bugs and issues at <https://github.com/tiliado/nuvola-app-amazon-cloud-player/issues>.
+Known issues can be found at <https://github.com/tiliado/nuvola-app-amazon-cloud-player/wiki/Known-Issues>.
 
 Installation
 ------------
