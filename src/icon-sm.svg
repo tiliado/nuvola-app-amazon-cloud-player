@@ -9,8 +9,8 @@
    style="enable-background:new"
    version="1.1"
    id="svg3146"
-   height="512"
-   width="512">
+   height="32"
+   width="32">
   <defs
      id="defs3148">
     <linearGradient
@@ -81,12 +81,12 @@
     </rdf:RDF>
   </metadata>
   <g
-     style="filter:url(#filter3363)"
-     transform="translate(-343.03215,-52.284578)"
+     style="opacity:0.95;filter:url(#filter3363)"
+     transform="translate(-343.03215,-532.28458)"
      id="layer1">
     <g
        style="display:inline;fill:url(#linearGradient4110);fill-opacity:1"
-       transform="matrix(8.0080466,0,0,8.0194487,342.77468,51.297701)"
+       transform="matrix(0.50050291,0,0,0.50121554,343.01606,532.2229)"
        id="g3996">
       <rect
          style="fill:url(#linearGradient3144);fill-opacity:1;stroke:none"
@@ -98,7 +98,7 @@
          ry="2.9927244" />
     </g>
     <g
-       transform="matrix(12.6387,0,0,12.656695,379.02615,-107.77208)"
+       transform="matrix(0.78991875,0,0,0.79104344,345.28178,522.28104)"
        id="g4198"
        style="display:inline">
       <path
@@ -116,7 +116,7 @@
       </g>
     </g>
     <g
-       transform="matrix(10.45995,1.6570266,-2.2089716,7.846389,356.91393,17.028351)"
+       transform="matrix(0.65374688,0.10356416,-0.13806073,0.49039931,343.89976,530.08106)"
        id="g4043"
        style="display:inline">
       <path
