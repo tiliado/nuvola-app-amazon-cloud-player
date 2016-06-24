@@ -58,8 +58,11 @@ WebApp._onInitWebWorker = function(emitter)
     Nuvola.config.setDefault(COUNTRY_VARIANT, "");
     this.state = PlaybackState.UNKNOWN;
 
-    document.addEventListener("DOMContentLoaded", this._onPageReady.bind(this));
-    Nuvola.core.connect("InitializationForm", this);
+    var state = document.readyState;
+    if (state === "interactive" || state === "complete")
+        this._onPageReady();
+    else
+        document.addEventListener("DOMContentLoaded", this._onPageReady.bind(this));
 }
 
 // Page is ready for magic
