@@ -1,6 +1,7 @@
 /*
  * Copyright 2015 Stephen Herbein <stephen272@gmail.com>
  * Copyright 2015 Steffen Coenen <steffen@steffen-coenen.de>
+ * Copyright 2016 Jiří Janoušek <janousek.jiri@gmail.com>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met: 
@@ -33,7 +34,7 @@ var _ = Nuvola.Translate.gettext;
 var C_ = Nuvola.Translate.pgettext;
 
 var COUNTRY_VARIANT = "app.country_variant";
-var HOME_PAGE = "http://www.amazon.{1}/gp/dmusic/mp3/player";
+var HOME_PAGE = "https://music.amazon.{1}/";
 var COUNTRY_VARIANTS = [
     ["de", C_("Amazon variant", "Germany")],
     ["fr", C_("Amazon variant", "France")],
