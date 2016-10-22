@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.2 - unreleased
---------------------
+5.2 - October 22, 2016
+----------------------
 
   * New maintainer: Jiří Janoušek.
   * Added a complete icon set.
