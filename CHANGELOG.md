@@ -11,3 +11,4 @@ Changelog
   * Added information about contributing to the script.
   * New maintainer: Jiří Janoušek.
   * Adapted to the change of Amazon Music address.
+  * Track info parsing has been fixed.

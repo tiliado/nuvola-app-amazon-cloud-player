@@ -110,17 +110,6 @@ WebApp._onHomePageRequest = function(emitter, result)
     result.url = Nuvola.format(HOME_PAGE, Nuvola.config.get(COUNTRY_VARIANT));
 }
 
-WebApp.getMP3Player = function()
-{
-    var mp3Player;
-    try {
-        mp3Player = document.getElementById("mp3Player");
-    } catch (e) {
-        mp3Player = document;
-    }
-    return mp3Player;
-}
-
 // Extract data from the web page
 WebApp.update = function()
 {
@@ -131,17 +120,15 @@ WebApp.update = function()
         artLocation: null
     }
 
-    var playerRoot = this.getMP3Player();
-
     try {
-        var songDetails = playerRoot.getElementsByClassName("currentSongDetails")[0];
-        track.title = songDetails.getElementsByClassName("title")[0].textContent;
-        track.artist = songDetails.getElementsByClassName("artistLink")[0].textContent;
-
-        var albumImage = playerRoot.getElementsByClassName("albumImage")[0];
-        track.artLocation = albumImage.src;
-        if (track.album === null)
-            track.album = albumImage.title;
+        var elm = document.querySelector("#dragonflyTransport .trackTitle");
+        track.title = elm ? elm.textContent : null;
+        elm = document.querySelector("#dragonflyTransport .trackArtist");
+        track.artist = elm ? elm.textContent : null;
+        elm = document.querySelector("#dragonflyTransport .trackAlbumArt img");
+        track.artLocation = elm ? elm.src : null;
+        elm = document.querySelector('tr.currentlyPlaying td.albumCell');
+        track.album = elm ? elm.title : null;
     } catch (e) {
         //~ console.log("Failed to get track info");
         //~ console.log(e.message);
