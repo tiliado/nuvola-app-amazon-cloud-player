@@ -1,8 +1,8 @@
 {
     "id": "amazon_cloud_player",
     "name": "Amazon Cloud Player",
-    "maintainer_name": "Stephen Herbein",
-    "maintainer_link": "https://github.com/SteVwonder",
+    "maintainer_name": "Jiří Janoušek",
+    "maintainer_link": "https://github.com/fenryxo",
     "version_major": 5,
     "version_minor": 1,
     "api_major": 3,
