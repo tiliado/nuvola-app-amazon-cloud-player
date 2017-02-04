@@ -1,0 +1,20 @@
+{
+    "id": "amazon_cloud_player", 
+    "name": "Amazon Cloud Player", 
+    "maintainer_name": "Jiří Janoušek", 
+    "maintainer_link": "https://github.com/fenryxo", 
+    "version_major": 5, 
+    "version_minor": 2, 
+    "api_major": 3, 
+    "api_minor": 0, 
+    "categories": "AudioVideo;Audio;", 
+    "license": "2-Clause BSD-license", 
+    "allowed_uri": "^https?://music.amazon.[a-z.]+/#?.*$", 
+    "build": {
+        "icons": [
+            "src/icon.svg SCALABLE 64 128 256", 
+            "src/icon-xs.svg 16 22 24", 
+            "src/icon-sm.svg 32 48"
+        ]
+    }
+}
