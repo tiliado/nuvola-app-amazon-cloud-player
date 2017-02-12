@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.3 - unreleased
-----------------
+5.3 - February 12th, 2017
+-------------------------
 
   * Ported to Nuvola SDK.
   
