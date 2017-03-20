@@ -1,8 +1,8 @@
 {
     "id": "amazon_cloud_player", 
     "name": "Amazon Cloud Player", 
-    "maintainer_name": "Jiří Janoušek", 
-    "maintainer_link": "https://github.com/fenryxo", 
+    "maintainer_name": "Andrew Stubbs",
+    "maintainer_link": "https://github.com/a-m-s",
     "version_major": 5, 
     "version_minor": 3, 
     "api_major": 3, 
