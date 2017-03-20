@@ -4,12 +4,12 @@
     "maintainer_name": "Andrew Stubbs",
     "maintainer_link": "https://github.com/a-m-s",
     "version_major": 5, 
-    "version_minor": 3, 
+    "version_minor": 4,
     "api_major": 3, 
     "api_minor": 0, 
     "categories": "AudioVideo;Audio;", 
     "license": "2-Clause BSD-license", 
-    "allowed_uri": "^https?://music.amazon.[a-z.]+/#?.*$", 
+    "allowed_uri": "^https?://(music.amazon.[a-z.]+/#?.*|www.amazon.[a-z.]+/[ga]p/.*)$",
     "build": {
         "icons": [
             "src/icon.svg SCALABLE 64 128 256", 
