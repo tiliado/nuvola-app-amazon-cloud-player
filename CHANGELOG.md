@@ -1,6 +1,12 @@
 Changelog
 =========
 
+5.4 - unreleased
+----------------
+
+  * New maintainer: Andrew Stubbs
+  * Fix login on Nuvola 3.1 (bug #20)
+
 5.3 - February 12th, 2017
 -------------------------
 
