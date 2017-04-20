@@ -1,11 +1,11 @@
 Changelog
 =========
 
-5.4 - unreleased
-----------------
+5.4 - April 20th, 2017
+----------------------
 
   * New maintainer: Andrew Stubbs
-  * Fix login on Nuvola 3.1 (bug #20)
+  * Fix login on Nuvola 3.1. Issue: tiliado/nuvola-app-amazon-cloud-player#20
 
 5.3 - February 12th, 2017
 -------------------------
