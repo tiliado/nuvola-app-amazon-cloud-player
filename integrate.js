@@ -117,9 +117,11 @@ WebApp.update = function()
         title: null,
         artist: null,
         album: null,
-        artLocation: null
+        artLocation: null,
+        length: null
     }
 
+    var timeElapsed = null;
     try {
         var elm = document.querySelector("#dragonflyTransport .trackTitle");
         track.title = elm ? elm.textContent : null;
@@ -129,6 +131,15 @@ WebApp.update = function()
         track.artLocation = elm ? elm.src : null;
         elm = document.querySelector('tr.currentlyPlaying td.albumCell');
         track.album = elm ? elm.title : null;
+        elm = document.querySelector('.timeRemaining');
+        timeElapsed = document.querySelector('.timeElapsed');
+        if (elm && timeElapsed) {
+	    var time1 = elm.textContent.split(":")
+	    var time2 = timeElapsed.textContent.split(":")
+	    var secs = Number(time1[0])*60 + Number(time1[1]) + Number(time2[0])*60 + Number(time2[1]);
+            track.length = Math.floor(secs/60).toString() + ":" + (secs%60);
+	    timeElapsed = timeElapsed.textContent;
+	}
     } catch (e) {
         //~ console.log("Failed to get track info");
         //~ console.log(e.message);
@@ -145,6 +156,10 @@ WebApp.update = function()
     else
         this.state = PlaybackState.UNKNOWN;
 
+    if (Nuvola.checkVersion && Nuvola.checkVersion(4, 4, 18)) { // @API 4.5
+        player.setTrackPosition(timeElapsed);
+        player.setCanSeek(this.state !== PlaybackState.UNKNOWN);
+    }
     
     player.setPlaybackState(this.state);
     player.setCanPause(!!pauseButton);
@@ -213,6 +228,14 @@ WebApp._onActionActivated = function(emitter, name, param)
         var button = this._getNextButton();
         if (button)
             Nuvola.clickOnElement(button);
+        break;
+    case PlayerAction.SEEK:  // @API 4.5: undefined & ignored in Nuvola < 4.5
+        var timeRemaining = document.querySelector('.timeRemaining');
+        var timeElapsed = document.querySelector('.timeElapsed');
+        var total = Nuvola.parseTimeUsec(timeRemaining ? timeRemaining.textContent : null) 
+		    + Nuvola.parseTimeUsec(timeElapsed ? timeElapsed.textContent : null);
+        if (param > 0 && param <= total)
+            Nuvola.clickOnElement(document.querySelector(".sliderTrack"), param/total, 0.5);
         break;
     }
 }

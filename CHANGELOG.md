@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.5 - unreleased
+----------------
+
+  * Added track position reporting and seeking (Nuvola 4.5+ only).
+
 5.4 - April 20th, 2017
 ----------------------
 
