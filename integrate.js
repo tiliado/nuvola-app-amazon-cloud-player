@@ -52,6 +52,12 @@ var PlayerAction = Nuvola.PlayerAction;
 // Create new WebApp prototype
 var WebApp = Nuvola.$WebApp();
 
+// Have we read the volume yet?
+var volumeKnown = false;
+
+// Countdown number of "update" cycles before closing volume controls.
+var autoCloseVolume = 0;
+
 // Initialization routines
 WebApp._onInitWebWorker = function(emitter)
 {
@@ -159,6 +165,35 @@ WebApp.update = function()
     if (Nuvola.checkVersion && Nuvola.checkVersion(4, 4, 18)) { // @API 4.5
         player.setTrackPosition(timeElapsed);
         player.setCanSeek(this.state !== PlaybackState.UNKNOWN);
+
+        var elm = document.querySelector(".volumeHandle");
+        if (elm) {
+	  Nuvola.log("volume: " + elm.style.bottom.split("%")[0]);
+	  player.updateVolume(elm.style.bottom.split("%")[0] / 100.0);
+	  player.setCanChangeVolume(true);
+
+	  // Close volume control, if we opened it.
+	  if (!this.volumeKnown) {
+	      elm = document.querySelector(".volume");
+	      if (elm)
+		Nuvola.clickOnElement(elm);
+	      this.volumeKnown = true;
+	  }
+	} else if (!this.volumeKnown) {
+	  // Open volume control to read the setting.
+	  elm = document.querySelector(".volume");
+	  if (elm)
+	    Nuvola.clickOnElement(elm);
+	}
+        if (autoCloseVolume > 0) {
+	  autoCloseVolume--;
+	  if (autoCloseVolume == 0) {
+	      // Close volume slider now
+	      elm = document.querySelector(".volume");
+	      if (elm)
+		  Nuvola.clickOnElement(elm);
+	  }
+	}
     }
     
     player.setPlaybackState(this.state);
@@ -166,7 +201,7 @@ WebApp.update = function()
     player.setCanPlay(!!playButton);
     player.setCanGoPrev(!!this._getPrevButton);
     player.setCanGoNext(!!this._getNextButton);
-    
+
     // Schedule the next update
     setTimeout(this.update.bind(this), 500);
 }
@@ -236,6 +271,32 @@ WebApp._onActionActivated = function(emitter, name, param)
 		    + Nuvola.parseTimeUsec(timeElapsed ? timeElapsed.textContent : null);
         if (param > 0 && param <= total)
             Nuvola.clickOnElement(document.querySelector(".sliderTrack"), param/total, 0.5);
+        break;
+    case PlayerAction.CHANGE_VOLUME:  // @API 4.5: undefined & ignored in Nuvola < 4.5
+	var control = document.querySelector(".volumeTrack");
+	if (!control) {
+	    // Try opening the control, and try again.
+	    var elm = document.querySelector(".volume");
+	    if (elm)
+		Nuvola.clickOnElement(elm);
+	    control = document.querySelector(".volumeTrack");
+	    
+	    // Start the close count down
+	    autoCloseVolume = 1;
+	}
+	if (control)
+	{
+	    // A regular clickOnElement is not effective here.
+	    var y = 1.0 - param;
+	    Nuvola.triggerMouseEvent(control, "mouseenter", 0.5, y);
+	    Nuvola.triggerMouseEvent(control, "mousedown", 0.5, y);
+	    Nuvola.triggerMouseEvent(control, "mouseup", 0.5, y);
+	    Nuvola.triggerMouseEvent(control, "mouseout", 0.5, y);
+
+	    // Reset the close count down every time the volume changes
+	    if (autoCloseVolume > 0)
+	        autoCloseVolume = 5;
+	}
         break;
     }
 }

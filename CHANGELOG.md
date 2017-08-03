@@ -5,6 +5,7 @@ Changelog
 ----------------
 
   * Added track position reporting and seeking (Nuvola 4.5+ only).
+  * Added volume control integration (Nuvola 4.5+ only).
 
 5.4 - April 20th, 2017
 ----------------------
