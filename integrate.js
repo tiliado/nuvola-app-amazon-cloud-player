@@ -140,10 +140,8 @@ WebApp.update = function()
         elm = document.querySelector('.timeRemaining');
         timeElapsed = document.querySelector('.timeElapsed');
         if (elm && timeElapsed) {
-	    var time1 = elm.textContent.split(":")
-	    var time2 = timeElapsed.textContent.split(":")
-	    var secs = Number(time1[0])*60 + Number(time1[1]) + Number(time2[0])*60 + Number(time2[1]);
-            track.length = Math.floor(secs/60).toString() + ":" + (secs%60);
+            track.length = Nuvola.parseTimeUsec(elm ? elm.textContent : null) 
+			   + Nuvola.parseTimeUsec(timeElapsed ? timeElapsed.textContent : null);
 	    timeElapsed = timeElapsed.textContent;
 	}
     } catch (e) {
@@ -168,7 +166,6 @@ WebApp.update = function()
 
         var elm = document.querySelector(".volumeHandle");
         if (elm) {
-	  Nuvola.log("volume: " + elm.style.bottom.split("%")[0]);
 	  player.updateVolume(elm.style.bottom.split("%")[0] / 100.0);
 	  player.setCanChangeVolume(true);
 
