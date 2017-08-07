@@ -139,7 +139,7 @@ WebApp.update = function()
         track.album = elm ? elm.title : null;
         elm = document.querySelector('.timeRemaining');
         timeElapsed = document.querySelector('.timeElapsed');
-        if (elm && timeElapsed) {
+        if (Nuvola.parseTimeUsec && elm && timeElapsed) {
             track.length = Nuvola.parseTimeUsec(elm ? elm.textContent : null) 
 			   + Nuvola.parseTimeUsec(timeElapsed ? timeElapsed.textContent : null);
 	    timeElapsed = timeElapsed.textContent;
