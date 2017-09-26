@@ -10,6 +10,7 @@
     "categories": "AudioVideo;Audio;", 
     "license": "2-Clause BSD-license", 
     "allowed_uri": "^https?://(music.amazon.[a-z.]+/#?.*|www.amazon.[a-z.]+/[ga]p/.*)$",
+    "requirements": "Codec[MP3] Feature[Flash]",
     "build": {
         "icons": [
             "src/icon.svg SCALABLE 64 128 256", 
