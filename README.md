@@ -2,7 +2,7 @@ Amazon Cloud Player (Nuvola app)
 ================================
 
 Integration of Amazon Cloud Player into your linux desktop via
-[Nuvola Player](https://github.com/tiliado/nuvolaplayer).
+[Nuvola Apps Runtime](https://github.com/tiliado/nuvolaruntime).
  
 Support
 -------
