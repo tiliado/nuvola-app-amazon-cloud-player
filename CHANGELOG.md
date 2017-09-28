@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.5 - unreleased
-----------------
+5.5 - September 28th, 2017
+-----------------------
 
   * Added track position reporting and seeking (Nuvola 4.5+ only).
   * Added volume control integration (Nuvola 4.5+ only).
