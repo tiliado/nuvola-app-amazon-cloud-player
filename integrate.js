@@ -135,8 +135,8 @@ WebApp.update = function()
         track.artist = elm ? elm.textContent : null;
         elm = document.querySelector("#dragonflyTransport .trackAlbumArt img");
         track.artLocation = elm ? elm.src : null;
-        elm = document.querySelector('tr.currentlyPlaying td.albumCell');
-        track.album = elm ? elm.title : null;
+        elm = document.querySelector("#dragonflyTransport .trackSourceLink a");
+        track.album = elm ? elm.textContent : null;
         elm = document.querySelector('.timeRemaining');
         timeElapsed = document.querySelector('.timeElapsed');
         if (Nuvola.parseTimeUsec && elm && timeElapsed) {
