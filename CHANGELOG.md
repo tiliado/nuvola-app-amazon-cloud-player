@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.6 - unreleased
+----------------
+
+  * Update album name extraction.
+
 5.5 - September 28th, 2017
 -----------------------
 
