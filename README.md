@@ -20,6 +20,7 @@ page in order to obtain information about dependencies and installation instruct
 Copyright
 ---------
 
+  - Copyright 2018 Simon Dierl <simon.dierl@cs.tu-dortmund.de>
   - Copyright 2015-2016 Stephen Herbein <stephen272@gmail.com>
   - Copyright 2015 Steffen Coenen <steffen@steffen-coenen.de>
   - Copyright 2014-2017 Jiří Janoušek <janousek.jiri@gmail.com>
