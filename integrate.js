@@ -62,7 +62,7 @@ var autoCloseVolume = 0;
 WebApp._onInitWebWorker = function(emitter)
 {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter);
-    Nuvola.config.setDefault(COUNTRY_VARIANT, "");
+    Nuvola.config.setDefaultAsync(COUNTRY_VARIANT, "").catch(console.log.bind(console));
     this.state = PlaybackState.UNKNOWN;
 
     var state = document.readyState;
