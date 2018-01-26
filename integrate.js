@@ -42,6 +42,9 @@ var COUNTRY_VARIANTS = [
     ["com", C_("Amazon variant", "United States")]
 ];
 
+var ACTION_THUMBS_UP = "thumbs-up";
+var ACTION_THUMBS_DOWN = "thumbs-down";
+
 // Create media player component
 var player = Nuvola.$object(Nuvola.MediaPlayer);
 
@@ -79,6 +82,9 @@ WebApp._onPageReady = function()
     // Connect handler for signal ActionActivated
     Nuvola.actions.connect("ActionActivated", this);
 
+    var actions = [ACTION_THUMBS_UP, ACTION_THUMBS_DOWN];
+    player.addExtraActions(actions);
+
     // Start update routine
     this.update();
 }
@@ -103,6 +109,11 @@ WebApp._onInitAppRunner = function(emitter)
 {
     Nuvola.core.connect("InitializationForm", this);
     Nuvola.core.connect("PreferencesForm", this);
+
+    Nuvola.actions.addAction("playback", "win", ACTION_THUMBS_UP, C_("Action", "Thumbs up"),
+        null, null, null, true);
+    Nuvola.actions.addAction("playback", "win", ACTION_THUMBS_DOWN, C_("Action", "Thumbs down"),
+        null, null, null, true);
 }
 
 WebApp._onPreferencesForm = function(emitter, values, entries)
@@ -199,6 +210,22 @@ WebApp.update = function()
     player.setCanGoPrev(!!this._getPrevButton);
     player.setCanGoNext(!!this._getNextButton);
 
+    try {
+      var actionsEnabled = {};
+      var actionsStates = {};
+
+      elm = document.querySelector(".thumbsUpButton");
+      actionsEnabled[ACTION_THUMBS_UP] = !!elm;
+      actionsStates[ACTION_THUMBS_UP] = (elm ? elm.attributes["aria-checked"].value == "true" : false);
+
+      elm = document.querySelector(".thumbsDownButton");
+      actionsEnabled[ACTION_THUMBS_DOWN] = !!elm;
+      actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes["aria-checked"].value == "true" : false);
+
+      Nuvola.actions.updateEnabledFlags(actionsEnabled);
+      Nuvola.actions.updateStates(actionsStates);
+    } catch (e) {}
+
     // Schedule the next update
     setTimeout(this.update.bind(this), 500);
 }
@@ -294,6 +321,16 @@ WebApp._onActionActivated = function(emitter, name, param)
 	    if (autoCloseVolume > 0)
 	        autoCloseVolume = 5;
 	}
+        break;
+    case ACTION_THUMBS_UP:
+	var button = document.querySelector(".thumbsUpButton");
+	if (button)
+            Nuvola.clickOnElement(button);
+        break;
+    case ACTION_THUMBS_DOWN:
+	var button = document.querySelector(".thumbsDownButton");
+	if (button)
+            Nuvola.clickOnElement(button);
         break;
     }
 }

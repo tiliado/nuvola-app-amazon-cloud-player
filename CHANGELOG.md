@@ -6,6 +6,7 @@ Changelog
 
   * Update album name extraction.
   * Update for Nuvola 4.9 API & Chromium.
+  * Add actions for thumbs up and down.
 
 5.5 - September 28th, 2017
 -----------------------
