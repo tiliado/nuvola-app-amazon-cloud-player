@@ -171,37 +171,35 @@ WebApp.update = function()
     else
         this.state = PlaybackState.UNKNOWN;
 
-    if (Nuvola.checkVersion && Nuvola.checkVersion(4, 4, 18)) { // @API 4.5
-        player.setTrackPosition(timeElapsed);
-        player.setCanSeek(this.state !== PlaybackState.UNKNOWN);
+    player.setTrackPosition(timeElapsed);
+    player.setCanSeek(this.state !== PlaybackState.UNKNOWN);
 
-        var elm = document.querySelector(".volumeHandle");
-        if (elm) {
-	  player.updateVolume(elm.style.bottom.split("%")[0] / 100.0);
-	  player.setCanChangeVolume(true);
+    var elm = document.querySelector(".volumeHandle");
+    if (elm) {
+      player.updateVolume(elm.style.bottom.split("%")[0] / 100.0);
+      player.setCanChangeVolume(true);
 
-	  // Close volume control, if we opened it.
-	  if (!this.volumeKnown) {
-	      elm = document.querySelector(".volume");
-	      if (elm)
-		Nuvola.clickOnElement(elm);
-	      this.volumeKnown = true;
-	  }
-	} else if (!this.volumeKnown) {
-	  // Open volume control to read the setting.
+      // Close volume control, if we opened it.
+      if (!this.volumeKnown) {
 	  elm = document.querySelector(".volume");
 	  if (elm)
 	    Nuvola.clickOnElement(elm);
-	}
-        if (autoCloseVolume > 0) {
-	  autoCloseVolume--;
-	  if (autoCloseVolume == 0) {
-	      // Close volume slider now
-	      elm = document.querySelector(".volume");
-	      if (elm)
-		  Nuvola.clickOnElement(elm);
-	  }
-	}
+	  this.volumeKnown = true;
+      }
+    } else if (!this.volumeKnown) {
+      // Open volume control to read the setting.
+      elm = document.querySelector(".volume");
+      if (elm)
+	Nuvola.clickOnElement(elm);
+    }
+    if (autoCloseVolume > 0) {
+      autoCloseVolume--;
+      if (autoCloseVolume == 0) {
+	  // Close volume slider now
+	  elm = document.querySelector(".volume");
+	  if (elm)
+	      Nuvola.clickOnElement(elm);
+      }
     }
     
     player.setPlaybackState(this.state);
@@ -288,7 +286,7 @@ WebApp._onActionActivated = function(emitter, name, param)
         if (button)
             Nuvola.clickOnElement(button);
         break;
-    case PlayerAction.SEEK:  // @API 4.5: undefined & ignored in Nuvola < 4.5
+    case PlayerAction.SEEK:
         var timeRemaining = document.querySelector('.timeRemaining');
         var timeElapsed = document.querySelector('.timeElapsed');
         var total = Nuvola.parseTimeUsec(timeRemaining ? timeRemaining.textContent : null) 
@@ -296,7 +294,7 @@ WebApp._onActionActivated = function(emitter, name, param)
         if (param > 0 && param <= total)
             Nuvola.clickOnElement(document.querySelector(".sliderTrack"), param/total, 0.5);
         break;
-    case PlayerAction.CHANGE_VOLUME:  // @API 4.5: undefined & ignored in Nuvola < 4.5
+    case PlayerAction.CHANGE_VOLUME:
 	var control = document.querySelector(".volumeTrack");
 	if (!control) {
 	    // Try opening the control, and try again.
