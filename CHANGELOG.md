@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.6 - unreleased
-----------------
+5.6 - February 16th, 2017
+-------------------------
 
   * Update album name extraction.
   * Update for Nuvola 4.9 API & Chromium.
@@ -24,7 +24,7 @@ Changelog
 -------------------------
 
   * Ported to Nuvola SDK.
-  
+
 5.2 - October 22, 2016
 ----------------------
 
