@@ -1,4 +1,6 @@
 /*
+ * Copyright 2017-2018  Andrew Stubbs <andrew.stubbs@gmail.com>
+ * Copyright 2018 Simon Dierl <simon.dierl@cs.tu-dortmund.de>
  * Copyright 2015 Stephen Herbein <stephen272@gmail.com>
  * Copyright 2015 Steffen Coenen <steffen@steffen-coenen.de>
  * Copyright 2016 Jiří Janoušek <janousek.jiri@gmail.com>
