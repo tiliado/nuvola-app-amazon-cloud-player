@@ -1,6 +1,10 @@
 Changelog
 =========
 
+  * The Chromium-based backend is required to achieve audio playback without Flash plugin
+    (when possible, e.g. in your own music library) or better stability of Flash plugin (for Amazon Prime streaming).
+    Issue: tiliado/nuvola-app-amazon-cloud-player#34, tiliado/nuvolaruntime#354
+
 5.6 - February 16th, 2017
 -------------------------
 
