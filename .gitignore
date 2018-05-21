@@ -10,4 +10,6 @@ eu.tiliado.WebRuntimeAppAmazonCloudPlayer.desktop
 eu.tiliado.WebRuntimeAppAmazonCloudPlayer.service
 nuvola-app-amazon-cloud-player.metainfo.xml
 screenshots/
-
+/screenshots/
+eu.tiliado.NuvolaAppAmazonCloudPlayer.service
+eu.tiliado.WebRuntimeAppAmazonCloudPlayer.appdata.xml
