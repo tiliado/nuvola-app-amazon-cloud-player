@@ -39,7 +39,8 @@
     ['de', C_('Amazon variant', 'Germany')],
     ['fr', C_('Amazon variant', 'France')],
     ['co.uk', C_('Amazon variant', 'United Kingdom')],
-    ['com', C_('Amazon variant', 'United States')]
+    ['com', C_('Amazon variant', 'United States')],
+    ['it', C_('Amazon variant', 'Italy')]
   ]
 
   var ACTION_THUMBS_UP = 'thumbs-up'
