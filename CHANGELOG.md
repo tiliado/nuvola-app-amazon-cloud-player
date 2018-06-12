@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.8 - unreleased
+----------------
+
+  * Add Italian region support.
+
 5.7 - May 8th, 2018
 -------------------
 
