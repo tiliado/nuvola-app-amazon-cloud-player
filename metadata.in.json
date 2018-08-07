@@ -8,6 +8,7 @@
   "api_major": 4,
   "api_minor": 11,
   "categories": "AudioVideo;Audio;",
+  "dark_theme": true,
   "license": "2-Clause BSD-license",
   "allowed_uri": "^https?://(music.amazon.[a-z.]+/#?.*|www.amazon.[a-z.]+/[ga]p/.*)$",
   "#requirements": "https://github.com/tiliado/nuvola-app-amazon-cloud-player/issues/33",
