@@ -5,6 +5,8 @@ Changelog
 ----------------
 
   * Add Italian region support.
+  * Add playlist repeat integration.
+  * Add playlist shuffle integration.
 
 5.7 - May 8th, 2018
 -------------------

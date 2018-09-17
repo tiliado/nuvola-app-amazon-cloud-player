@@ -210,6 +210,14 @@
       actionsEnabled[ACTION_THUMBS_DOWN] = !!elm
       actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes['aria-checked'].value === 'true' : false)
 
+      elm = document.querySelector('.shuffleButton')
+      actionsEnabled[PlayerAction.SHUFFLE] = !!elm
+      actionsStates[PlayerAction.SHUFFLE] = (elm ? elm.attributes['aria-checked'].value === 'true' : false)
+
+      elm = document.querySelector('.repeatButton')
+      actionsEnabled[PlayerAction.REPEAT] = !!elm
+      actionsStates[PlayerAction.REPEAT] = (elm && elm.attributes['aria-checked'].value === 'true' ? Nuvola.PlayerRepeat.PLAYLIST : Nuvola.PlayerRepeat.NONE)
+
       Nuvola.actions.updateEnabledFlags(actionsEnabled)
       Nuvola.actions.updateStates(actionsStates)
     } catch (e) {}
@@ -303,6 +311,14 @@
         break
       case ACTION_THUMBS_DOWN:
         button = document.querySelector('.thumbsDownButton')
+        if (button) Nuvola.clickOnElement(button)
+        break
+      case PlayerAction.SHUFFLE:
+        button = document.querySelector('.shuffleButton')
+        if (button) Nuvola.clickOnElement(button)
+        break
+      case PlayerAction.REPEAT:
+        button = document.querySelector('.repeatButton')
         if (button) Nuvola.clickOnElement(button)
         break
     }
