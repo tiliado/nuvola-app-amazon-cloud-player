@@ -319,7 +319,10 @@
         break
       case PlayerAction.REPEAT:
         button = document.querySelector('.repeatButton')
-        if (button) Nuvola.clickOnElement(button)
+        if (button) {
+          var state = (button.attributes['aria-checked'].value === 'true' ? Nuvola.PlayerRepeat.PLAYLIST : Nuvola.PlayerRepeat.NONE)
+          if (param !== Nuvola.PlayerRepeat.TRACK && param !== state) Nuvola.clickOnElement(button)
+        }
         break
     }
   }
