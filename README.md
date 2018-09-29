@@ -1,4 +1,4 @@
-Amazon Cloud Player • Nuvola Apps Runtime
+Amazon Cloud Player • Nuvola Apps Runtime [![CircleCI](https://circleci.com/gh/tiliado/nuvola-app-amazon-cloud-player/tree/master.svg?style=svg)](https://circleci.com/gh/tiliado/nuvola-app-amazon-cloud-player/tree/master)
 =================================
 
 Integration of Amazon Cloud Player into your linux desktop via
