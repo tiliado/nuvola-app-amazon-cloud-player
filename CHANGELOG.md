@@ -4,7 +4,9 @@ Changelog
 5.8 - unreleased
 ----------------
 
+  * Nuvola 4.13 is required.
   * Add Italian region support.
+  * A dark theme variant is used by default.
   * Add playlist repeat integration.
   * Add playlist shuffle integration.
 
