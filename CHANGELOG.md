@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.8 - unreleased
-----------------
+5.8 - October 14th, 2018
+------------------------
 
   * Nuvola 4.13 is required.
   * Add Italian region support.
