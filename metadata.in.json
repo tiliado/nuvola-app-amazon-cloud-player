@@ -11,8 +11,7 @@
   "dark_theme": true,
   "license": "2-Clause BSD-license",
   "allowed_uri": "^https?://(music.amazon.[a-z.]+/#?.*|www.amazon.[a-z.]+/[ga]p/.*)$",
-  "#requirements": "https://github.com/tiliado/nuvola-app-amazon-cloud-player/issues/33",
-  "requirements": "Chromium[65] Codec[MP3] Feature[MSE] Feature[Flash]",
+  "requirements": "Chromium[71] Codec[MP3] Feature[MSE] Feature[Widevine]",
   "build": {
     "icons": [
       "src/icon.svg SCALABLE 64 128 256",

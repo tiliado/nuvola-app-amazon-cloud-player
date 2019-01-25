@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.9 - unreleased
+----------------
+
+  * Switch from Flash to Widevine.
+
 5.8 - October 14th, 2018
 ------------------------
 
