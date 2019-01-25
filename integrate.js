@@ -46,23 +46,23 @@
   var ACTION_THUMBS_UP = 'thumbs-up'
   var ACTION_THUMBS_DOWN = 'thumbs-down'
 
-// Create media player component
+  // Create media player component
   var player = Nuvola.$object(Nuvola.MediaPlayer)
 
-// Handy aliases
+  // Handy aliases
   var PlaybackState = Nuvola.PlaybackState
   var PlayerAction = Nuvola.PlayerAction
 
-// Create new WebApp prototype
+  // Create new WebApp prototype
   var WebApp = Nuvola.$WebApp()
 
-// Have we read the volume yet?
+  // Have we read the volume yet?
   WebApp.volumeKnown = false
 
-// Countdown number of "update" cycles before closing volume controls.
+  // Countdown number of "update" cycles before closing volume controls.
   WebApp.autoCloseVolume = 0
 
-// Initialization routines
+  // Initialization routines
   WebApp._onInitWebWorker = function (emitter) {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter)
     Nuvola.config.setDefaultAsync(COUNTRY_VARIANT, '').catch(console.log.bind(console))
@@ -76,7 +76,7 @@
     }
   }
 
-// Page is ready for magic
+  // Page is ready for magic
   WebApp._onPageReady = function () {
     // TODO: only set this after the user has logged in
     // Connect handler for signal ActionActivated
@@ -120,7 +120,7 @@
     result.url = Nuvola.format(HOME_PAGE, Nuvola.config.get(COUNTRY_VARIANT))
   }
 
-// Extract data from the web page
+  // Extract data from the web page
   WebApp.update = function () {
     var track = {
       title: null,
@@ -148,8 +148,8 @@
         timeElapsed = timeElapsed.textContent
       }
     } catch (e) {
-        // ~ console.log("Failed to get track info");
-        // ~ console.log(e.message);
+      // ~ console.log("Failed to get track info");
+      // ~ console.log(e.message);
     }
 
     player.setTrack(track)
@@ -186,7 +186,7 @@
     if (this.autoCloseVolume > 0) {
       this.autoCloseVolume--
       if (this.autoCloseVolume === 0) {
-          // Close volume slider now
+        // Close volume slider now
         elm = document.querySelector('.volume')
         if (elm) Nuvola.clickOnElement(elm)
       }
@@ -285,23 +285,23 @@
       case PlayerAction.CHANGE_VOLUME:
         var control = document.querySelector('.volumeTrack')
         if (!control) {
-            // Try opening the control, and try again.
+          // Try opening the control, and try again.
           var elm = document.querySelector('.volume')
           if (elm) Nuvola.clickOnElement(elm)
           control = document.querySelector('.volumeTrack')
 
-            // Start the close count down
+          // Start the close count down
           this.autoCloseVolume = 1
         }
         if (control) {
-            // A regular clickOnElement is not effective here.
+          // A regular clickOnElement is not effective here.
           var y = 1.0 - param
           Nuvola.triggerMouseEvent(control, 'mouseenter', 0.5, y)
           Nuvola.triggerMouseEvent(control, 'mousedown', 0.5, y)
           Nuvola.triggerMouseEvent(control, 'mouseup', 0.5, y)
           Nuvola.triggerMouseEvent(control, 'mouseout', 0.5, y)
 
-            // Reset the close count down every time the volume changes
+          // Reset the close count down every time the volume changes
           if (this.autoCloseVolume > 0) this.autoCloseVolume = 5
         }
         break
@@ -328,4 +328,4 @@
   }
 
   WebApp.start()
-})(this)  // function(Nuvola)
+})(this) // function(Nuvola)
