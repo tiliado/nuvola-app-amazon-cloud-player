@@ -1,10 +1,10 @@
 Changelog
 =========
 
-5.9 - unreleased
-----------------
+5.9 - February 24th, 2019
+-------------------------
 
-  * Switch from Flash to Widevine.
+  * Switch from Flash to Widevine. Issue: tiliado/nuvola-app-amazon-cloud-player#33, tiliado/nuvolaruntime#497
 
 5.8 - October 14th, 2018
 ------------------------
