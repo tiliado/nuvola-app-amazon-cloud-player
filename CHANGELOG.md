@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.10 - unreleased
+-----------------
+
+  * Add Canadian region support.
+
 5.9 - February 24th, 2019
 -------------------------
 
