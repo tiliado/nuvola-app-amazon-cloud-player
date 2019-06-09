@@ -5,6 +5,7 @@ Changelog
 -----------------
 
   * Add Canadian region support.
+  * Play action now will press "second" play button whenn button in header is disabled.
 
 5.9 - February 24th, 2019
 -------------------------

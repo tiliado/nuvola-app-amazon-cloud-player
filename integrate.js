@@ -233,7 +233,17 @@
   }
 
   WebApp._getPlayButton = function () {
-    return this._getButton('.playButton.playerIconPlay')
+    var elm = document.querySelector('.playButton.playerIconPlay')
+    if (elm && elm.classList.contains('disabled')) {
+      // Check if currently playing since there always is a disabled .playerIconPlay
+      if (this._getPauseButton()) {
+        return null
+      } else {
+        return this._getButton('.headerPlayAll') || this._getButton('.playAll')
+      }
+    } else {
+      return elm
+    }
   }
 
   WebApp._getPauseButton = function () {
