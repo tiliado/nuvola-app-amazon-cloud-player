@@ -4,8 +4,8 @@ Changelog
 5.10 - unreleased
 -----------------
 
-  * Add Canadian and Indian region support.
-  * Play action now will press "second" play button whenn button in header is disabled.
+  * Add Canadian, Indian and Brazilian region support.
+  * Play action now will press "second" play button when button in header is disabled.
 
 5.9 - February 24th, 2019
 -------------------------
