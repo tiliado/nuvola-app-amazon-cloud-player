@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.10 - unreleased
------------------
+5.10 - September 28, 2020
+-------------------------
 
   * Add Canadian, Indian and Brazilian region support.
   * Play action now will press "second" play button when button in header is disabled.
