@@ -59,12 +59,6 @@
   // Create new WebApp prototype
   var WebApp = Nuvola.$WebApp()
 
-  // Have we read the volume yet?
-  WebApp.volumeKnown = false
-
-  // Countdown number of "update" cycles before closing volume controls.
-  WebApp.autoCloseVolume = 0
-
   // Initialization routines
   WebApp._onInitWebWorker = function (emitter) {
     Nuvola.WebApp._onInitWebWorker.call(this, emitter)
@@ -135,21 +129,13 @@
 
     var timeElapsed = null
     try {
-      var elm = document.querySelector('#dragonflyTransport .trackTitle')
-      track.title = elm ? elm.textContent : null
-      elm = document.querySelector('#dragonflyTransport .trackArtist')
-      track.artist = elm ? elm.textContent : null
-      elm = document.querySelector('#dragonflyTransport .trackAlbumArt img')
-      track.artLocation = elm ? elm.src : null
-      elm = document.querySelector('#dragonflyTransport .trackSourceLink a')
-      track.album = elm ? elm.textContent : null
-      elm = document.querySelector('.timeRemaining')
-      timeElapsed = document.querySelector('.timeElapsed')
-      if (Nuvola.parseTimeUsec && elm && timeElapsed) {
-        track.length = Nuvola.parseTimeUsec(elm ? elm.textContent : null) +
-                       Nuvola.parseTimeUsec(timeElapsed ? timeElapsed.textContent : null)
-        timeElapsed = timeElapsed.textContent
-      }
+      var elm = document.querySelector('#transport music-horizontal-item')
+      track.title = elm ? elm.primaryText : null
+      track.artist = elm ? elm.secondaryText : null
+      track.artLocation = elm ? elm.imgSrc : null
+      track.album = null
+      track.length = maestro.getDuration()
+      timeElapsed = maestro.getCurrentTime()
     } catch (e) {
       // ~ console.log("Failed to get track info");
       // ~ console.log(e.message);
@@ -170,31 +156,11 @@
     player.setTrackPosition(timeElapsed)
     player.setCanSeek(this.state !== PlaybackState.UNKNOWN)
 
-    elm = document.querySelector('.volumeHandle')
-    if (elm) {
-      player.updateVolume(elm.style.bottom.split('%')[0] / 100.0)
-      player.setCanChangeVolume(true)
-
-      // Close volume control, if we opened it.
-      if (!this.volumeKnown) {
-        elm = document.querySelector('.volume')
-        if (elm) Nuvola.clickOnElement(elm)
-        this.volumeKnown = true
-      }
-    } else if (!this.volumeKnown) {
-      // Open volume control to read the setting.
-      elm = document.querySelector('.volume')
-      if (elm) Nuvola.clickOnElement(elm)
+    if (typeof maestro !== 'undefined') {
+        player.updateVolume(maestro.getVolume())
+        player.setCanChangeVolume(true)
     }
-    if (this.autoCloseVolume > 0) {
-      this.autoCloseVolume--
-      if (this.autoCloseVolume === 0) {
-        // Close volume slider now
-        elm = document.querySelector('.volume')
-        if (elm) Nuvola.clickOnElement(elm)
-      }
-    }
-
+      
     player.setPlaybackState(this.state)
     player.setCanPause(!!pauseButton)
     player.setCanPlay(!!playButton)
@@ -235,29 +201,19 @@
   }
 
   WebApp._getPlayButton = function () {
-    var elm = document.querySelector('.playButton.playerIconPlay')
-    if (elm && elm.classList.contains('disabled')) {
-      // Check if currently playing since there always is a disabled .playerIconPlay
-      if (this._getPauseButton()) {
-        return null
-      } else {
-        return this._getButton('.headerPlayAll') || this._getButton('.playAll')
-      }
-    } else {
-      return elm
-    }
+    return document.querySelector("music-button[aria-label='Play']")
   }
 
   WebApp._getPauseButton = function () {
-    return this._getButton('.playButton.playerIconPause')
+    return document.querySelector("music-button[aria-label='Pause']")
   }
 
   WebApp._getPrevButton = function () {
-    return this._getButton('.previousButton')
+    return document.querySelector("music-button[aria-label='Previous']")
   }
 
   WebApp._getNextButton = function () {
-    return this._getButton('.nextButton')
+    return document.querySelector("music-button[aria-label='Next']")
   }
 
   WebApp._onActionActivated = function (emitter, name, param) {
@@ -296,27 +252,7 @@
         }
         break
       case PlayerAction.CHANGE_VOLUME:
-        var control = document.querySelector('.volumeTrack')
-        if (!control) {
-          // Try opening the control, and try again.
-          var elm = document.querySelector('.volume')
-          if (elm) Nuvola.clickOnElement(elm)
-          control = document.querySelector('.volumeTrack')
-
-          // Start the close count down
-          this.autoCloseVolume = 1
-        }
-        if (control) {
-          // A regular clickOnElement is not effective here.
-          var y = 1.0 - param
-          Nuvola.triggerMouseEvent(control, 'mouseenter', 0.5, y)
-          Nuvola.triggerMouseEvent(control, 'mousedown', 0.5, y)
-          Nuvola.triggerMouseEvent(control, 'mouseup', 0.5, y)
-          Nuvola.triggerMouseEvent(control, 'mouseout', 0.5, y)
-
-          // Reset the close count down every time the volume changes
-          if (this.autoCloseVolume > 0) this.autoCloseVolume = 5
-        }
+        maestro.volume(param)
         break
       case ACTION_THUMBS_UP:
         button = document.querySelector('.thumbsUpButton')
