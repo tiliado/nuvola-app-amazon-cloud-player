@@ -129,16 +129,16 @@
 
     var timeElapsed = null
     try {
-      var elm = document.querySelector('#transport music-horizontal-item')
-      track.title = elm ? elm.primaryText : null
-      track.artist = elm ? elm.secondaryText : null
-      track.artLocation = elm ? elm.imgSrc : null
-      track.album = null
-      track.length = maestro.getDuration()
-      timeElapsed = maestro.getCurrentTime()
+      var appState = store.getState()
+      track.title = appState ? appState.Media.title : null
+      track.artist = appState ? appState.Media.artistName : null
+      track.artLocation = appState ? appState.Media.artwork : null
+      track.album = appState ? appState.Media.albumName : null
+      track.length = appState ? appState.Media.durationSeconds * 1000000 : null
+      timeElapsed = maestro.getCurrentTime() * 1000000
     } catch (e) {
-      // ~ console.log("Failed to get track info");
-      // ~ console.log(e.message);
+      console.log("Failed to get track info");
+      console.log(e.message);
     }
 
     player.setTrack(track)
@@ -179,9 +179,9 @@
       actionsEnabled[ACTION_THUMBS_DOWN] = !!elm
       actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes['aria-checked'].value === 'true' : false)
 
-      elm = document.querySelector('.shuffleButton')
+      elm = button = this._getShuffleButton()
       actionsEnabled[PlayerAction.SHUFFLE] = !!elm
-      actionsStates[PlayerAction.SHUFFLE] = (elm ? elm.attributes['aria-checked'].value === 'true' : false)
+      actionsStates[PlayerAction.SHUFFLE] = (elm ? elm.attributes['variant'].value === 'accent' : false)
 
       elm = document.querySelector('.repeatButton')
       actionsEnabled[PlayerAction.REPEAT] = !!elm
@@ -214,6 +214,10 @@
 
   WebApp._getNextButton = function () {
     return document.querySelector("music-button[aria-label='Next']")
+  }
+
+  WebApp._getShuffleButton = function () {
+    return document.querySelector("music-button[icon-name='shuffle']")
   }
 
   WebApp._onActionActivated = function (emitter, name, param) {
@@ -263,7 +267,7 @@
         if (button) Nuvola.clickOnElement(button)
         break
       case PlayerAction.SHUFFLE:
-        button = document.querySelector('.shuffleButton')
+        button = this._getShuffleButton()
         if (button) Nuvola.clickOnElement(button)
         break
       case PlayerAction.REPEAT:
