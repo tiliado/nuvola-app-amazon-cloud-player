@@ -56,6 +56,9 @@
   var PlaybackState = Nuvola.PlaybackState
   var PlayerAction = Nuvola.PlayerAction
 
+  // Desired repeat state
+  var DesiredRepeatState = null
+
   // Create new WebApp prototype
   var WebApp = Nuvola.$WebApp()
 
@@ -183,13 +186,18 @@
       actionsEnabled[PlayerAction.SHUFFLE] = !!elm
       actionsStates[PlayerAction.SHUFFLE] = (elm ? elm.attributes['variant'].value === 'accent' : false)
 
-      elm = document.querySelector('.repeatButton')
+      elm = this._getRepeatButton()
       actionsEnabled[PlayerAction.REPEAT] = !!elm
-      actionsStates[PlayerAction.REPEAT] = (elm && elm.attributes['aria-checked'].value === 'true' ? Nuvola.PlayerRepeat.PLAYLIST : Nuvola.PlayerRepeat.NONE)
+      actionsStates[PlayerAction.REPEAT] = this._getRepeatState()
+      if (!!elm && this.DesiredRepeatState !== null && this.DesiredRepeatState != this._getRepeatState())
+        Nuvola.clickOnElement(elm)
 
       Nuvola.actions.updateEnabledFlags(actionsEnabled)
       Nuvola.actions.updateStates(actionsStates)
-    } catch (e) {}
+    } catch (e) {
+      console.log("Failed to update");
+      console.log(e.message);
+    }
 
     // Schedule the next update
     setTimeout(this.update.bind(this), 500)
@@ -218,6 +226,21 @@
 
   WebApp._getShuffleButton = function () {
     return document.querySelector("music-button[icon-name='shuffle']")
+  }
+
+  WebApp._getRepeatButton = function () {
+    return document.querySelector("music-button[icon-name='repeat'], music-button[icon-name='repeatone']")
+  }
+
+  WebApp._getRepeatState = function () {
+    button = this._getRepeatButton()
+    if(!button)
+      return Nuvola.PlayerRepeat.NONE
+    if (button.attributes['icon-name'].value === 'repeatone')
+      return Nuvola.PlayerRepeat.TRACK
+    else if (button.attributes['variant'].value === 'accent')
+      return Nuvola.PlayerRepeat.PLAYLIST
+    return Nuvola.PlayerRepeat.NONE
   }
 
   WebApp._onActionActivated = function (emitter, name, param) {
@@ -271,11 +294,8 @@
         if (button) Nuvola.clickOnElement(button)
         break
       case PlayerAction.REPEAT:
-        button = document.querySelector('.repeatButton')
-        if (button) {
-          var state = (button.attributes['aria-checked'].value === 'true' ? Nuvola.PlayerRepeat.PLAYLIST : Nuvola.PlayerRepeat.NONE)
-          if (param !== Nuvola.PlayerRepeat.TRACK && param !== state) Nuvola.clickOnElement(button)
-        }
+        button = this._getRepeatButton()
+        this.DesiredRepeatState = param 
         break
     }
   }
