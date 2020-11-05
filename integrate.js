@@ -210,19 +210,19 @@
   }
 
   WebApp._getPlayButton = function () {
-    return document.querySelector("music-button[aria-label='Play']")
+    return document.querySelector("music-button[icon-name='play']")
   }
 
   WebApp._getPauseButton = function () {
-    return document.querySelector("music-button[aria-label='Pause']")
+    return document.querySelector("music-button[icon-name='pause']")
   }
 
   WebApp._getPrevButton = function () {
-    return document.querySelector("music-button[aria-label='Previous']")
+    return document.querySelector("music-button[icon-name='previous']")
   }
 
   WebApp._getNextButton = function () {
-    return document.querySelector("music-button[aria-label='Next']")
+    return document.querySelector("music-button[icon-name='next']")
   }
 
   WebApp._getShuffleButton = function () {
