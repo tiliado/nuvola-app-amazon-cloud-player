@@ -174,13 +174,13 @@
       var actionsEnabled = {}
       var actionsStates = {}
 
-      elm = document.querySelector('.thumbsUpButton')
+      elm = this._getThumbsUpButton()
       actionsEnabled[ACTION_THUMBS_UP] = !!elm
-      actionsStates[ACTION_THUMBS_UP] = (elm ? elm.attributes['aria-checked'].value === 'true' : false)
+      actionsStates[ACTION_THUMBS_UP] = (elm ? elm.attributes['variant'].value === 'accent' : false)
 
-      elm = document.querySelector('.thumbsDownButton')
+      elm = this._getThumbsDownButton()
       actionsEnabled[ACTION_THUMBS_DOWN] = !!elm
-      actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes['aria-checked'].value === 'true' : false)
+      actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes['variant'].value === 'accent' : false)
 
       elm = button = this._getShuffleButton()
       actionsEnabled[PlayerAction.SHUFFLE] = !!elm
@@ -243,6 +243,14 @@
     return Nuvola.PlayerRepeat.NONE
   }
 
+  WebApp._getThumbsUpButton = function () {
+    return document.querySelector("music-button[icon-name='like']")
+  }
+
+  WebApp._getThumbsDownButton = function () {
+    return document.querySelector("music-button[icon-name='dislike']")
+  }
+
   WebApp._onActionActivated = function (emitter, name, param) {
     var button = null
     switch (name) {
@@ -270,18 +278,17 @@
         if (button) Nuvola.clickOnElement(button)
         break
       case PlayerAction.SEEK:
-        console.log(param)
         maestro.seekTo(param / 1000000.0)
         break
       case PlayerAction.CHANGE_VOLUME:
         maestro.volume(param)
         break
       case ACTION_THUMBS_UP:
-        button = document.querySelector('.thumbsUpButton')
+        button = this._getThumbsUpButton()
         if (button) Nuvola.clickOnElement(button)
         break
       case ACTION_THUMBS_DOWN:
-        button = document.querySelector('.thumbsDownButton')
+        button = this._getThumbsDownButton()
         if (button) Nuvola.clickOnElement(button)
         break
       case PlayerAction.SHUFFLE:
