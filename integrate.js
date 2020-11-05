@@ -270,13 +270,8 @@
         if (button) Nuvola.clickOnElement(button)
         break
       case PlayerAction.SEEK:
-        var timeRemaining = document.querySelector('.timeRemaining')
-        var timeElapsed = document.querySelector('.timeElapsed')
-        var total = Nuvola.parseTimeUsec(timeRemaining ? timeRemaining.textContent : null) +
-                    Nuvola.parseTimeUsec(timeElapsed ? timeElapsed.textContent : null)
-        if (param > 0 && param <= total) {
-          Nuvola.clickOnElement(document.querySelector('.sliderTrack'), param / total, 0.5)
-        }
+        console.log(param)
+        maestro.seekTo(param / 1000000.0)
         break
       case PlayerAction.CHANGE_VOLUME:
         maestro.volume(param)
