@@ -57,7 +57,7 @@
   var PlayerAction = Nuvola.PlayerAction
 
   // Desired repeat state
-  var DesiredRepeatState = null
+  var DesiredRepeatState
 
   // Create new WebApp prototype
   var WebApp = Nuvola.$WebApp()
@@ -85,6 +85,7 @@
     var actions = [ACTION_THUMBS_UP, ACTION_THUMBS_DOWN]
     player.addExtraActions(actions)
 
+    this.DesiredRepeatState = this._getRepeatState()
     // Start update routine
     this.update()
   }
@@ -189,7 +190,7 @@
       elm = this._getRepeatButton()
       actionsEnabled[PlayerAction.REPEAT] = !!elm
       actionsStates[PlayerAction.REPEAT] = this._getRepeatState()
-      if (!!elm && this.DesiredRepeatState !== null && this.DesiredRepeatState != this._getRepeatState())
+      if (!!elm && this.DesiredRepeatState != this._getRepeatState())
         Nuvola.clickOnElement(elm)
 
       Nuvola.actions.updateEnabledFlags(actionsEnabled)
