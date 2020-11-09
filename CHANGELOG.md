@@ -1,6 +1,11 @@
 Changelog
 =========
 
+5.11 - unreleased
+-----------------
+
+  * Update integration following Amazon Music redesign.
+
 5.10 - September 28, 2020
 -------------------------
 
