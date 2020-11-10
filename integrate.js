@@ -28,6 +28,8 @@
 
 'use strict'
 
+/* global maestro */
+
 ;(function (Nuvola) {
 // Translations
   var _ = Nuvola.Translate.gettext
