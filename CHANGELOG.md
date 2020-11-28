@@ -1,10 +1,10 @@
 Changelog
 =========
 
-5.11 - unreleased
------------------
+5.11 - November 28th, 2020
+--------------------------
 
-  * Update integration following Amazon Music redesign.
+  * Update integration following Amazon Music redesign. Issue: tiliado/nuvolaplayer#656
 
 5.10 - September 28, 2020
 -------------------------
