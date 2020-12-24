@@ -32,12 +32,12 @@
 
 ;(function (Nuvola) {
 // Translations
-  var _ = Nuvola.Translate.gettext
-  var C_ = Nuvola.Translate.pgettext
+  const _ = Nuvola.Translate.gettext
+  const C_ = Nuvola.Translate.pgettext
 
-  var COUNTRY_VARIANT = 'app.country_variant'
-  var HOME_PAGE = 'https://music.amazon.{1}/'
-  var COUNTRY_VARIANTS = [
+  const COUNTRY_VARIANT = 'app.country_variant'
+  const HOME_PAGE = 'https://music.amazon.{1}/'
+  const COUNTRY_VARIANTS = [
     ['de', C_('Amazon variant', 'Germany')],
     ['fr', C_('Amazon variant', 'France')],
     ['co.uk', C_('Amazon variant', 'United Kingdom')],
@@ -48,18 +48,18 @@
     ['com.br', C_('Amazon variant', 'Brazil')]
   ]
 
-  var ACTION_THUMBS_UP = 'thumbs-up'
-  var ACTION_THUMBS_DOWN = 'thumbs-down'
+  const ACTION_THUMBS_UP = 'thumbs-up'
+  const ACTION_THUMBS_DOWN = 'thumbs-down'
 
   // Create media player component
-  var player = Nuvola.$object(Nuvola.MediaPlayer)
+  const player = Nuvola.$object(Nuvola.MediaPlayer)
 
   // Handy aliases
-  var PlaybackState = Nuvola.PlaybackState
-  var PlayerAction = Nuvola.PlayerAction
+  const PlaybackState = Nuvola.PlaybackState
+  const PlayerAction = Nuvola.PlayerAction
 
   // Create new WebApp prototype
-  var WebApp = Nuvola.$WebApp()
+  const WebApp = Nuvola.$WebApp()
 
   // Have we read the volume yet?
   WebApp.volumeKnown = false
@@ -76,7 +76,7 @@
     Nuvola.config.setDefaultAsync(COUNTRY_VARIANT, '').catch(console.log.bind(console))
     this.state = PlaybackState.UNKNOWN
 
-    var state = document.readyState
+    const state = document.readyState
     if (state === 'interactive' || state === 'complete') {
       this._onPageReady()
     } else {
@@ -90,7 +90,7 @@
     // Connect handler for signal ActionActivated
     Nuvola.actions.connect('ActionActivated', this)
 
-    var actions = [ACTION_THUMBS_UP, ACTION_THUMBS_DOWN]
+    const actions = [ACTION_THUMBS_UP, ACTION_THUMBS_DOWN]
     player.addExtraActions(actions)
 
     // Start update routine
@@ -107,7 +107,7 @@
     values[COUNTRY_VARIANT] = Nuvola.config.get(COUNTRY_VARIANT)
     entries.push(['header', _('Amazon Cloud Player')])
     entries.push(['label', _('Preferred national variant')])
-    for (var i = 0; i < COUNTRY_VARIANTS.length; i++) {
+    for (let i = 0; i < COUNTRY_VARIANTS.length; i++) {
       entries.push(['option', COUNTRY_VARIANT, COUNTRY_VARIANTS[i][0], COUNTRY_VARIANTS[i][1]])
     }
   }
@@ -130,7 +130,7 @@
 
   // Extract data from the web page
   WebApp.update = function () {
-    var track = {
+    const track = {
       title: null,
       artist: null,
       album: null,
@@ -138,9 +138,10 @@
       length: null
     }
 
-    var timeElapsed = null
+    let elm
+    let timeElapsed = null
     try {
-      var elm = document.querySelector('music-horizontal-item')
+      elm = document.querySelector('music-horizontal-item')
       track.title = elm ? elm.primaryText : null
       track.artist = elm ? elm.secondaryText : null
       track.artLocation = elm ? elm.imageSrc : null
@@ -154,8 +155,8 @@
 
     player.setTrack(track)
 
-    var playButton = this._getPlayButton()
-    var pauseButton = this._getPauseButton()
+    const playButton = this._getPlayButton()
+    const pauseButton = this._getPauseButton()
     if (pauseButton) {
       this.state = PlaybackState.PLAYING
     } else if (playButton) {
@@ -199,20 +200,20 @@
     player.setCanGoNext(!!this._getNextButton)
 
     try {
-      var actionsEnabled = {}
-      var actionsStates = {}
+      const actionsEnabled = {}
+      const actionsStates = {}
 
       elm = this._getThumbsUpButton()
       actionsEnabled[ACTION_THUMBS_UP] = !!elm
-      actionsStates[ACTION_THUMBS_UP] = (elm ? elm.attributes['variant'].value === 'accent' : false)
+      actionsStates[ACTION_THUMBS_UP] = (elm ? elm.attributes.variant.value === 'accent' : false)
 
       elm = this._getThumbsDownButton()
       actionsEnabled[ACTION_THUMBS_DOWN] = !!elm
-      actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes['variant'].value === 'accent' : false)
+      actionsStates[ACTION_THUMBS_DOWN] = (elm ? elm.attributes.variant.value === 'accent' : false)
 
       elm = this._getShuffleButton()
       actionsEnabled[PlayerAction.SHUFFLE] = !!elm
-      actionsStates[PlayerAction.SHUFFLE] = (elm ? elm.attributes['variant'].value === 'accent' : false)
+      actionsStates[PlayerAction.SHUFFLE] = (elm ? elm.attributes.variant.value === 'accent' : false)
 
       elm = this._getRepeatButton()
       actionsEnabled[PlayerAction.REPEAT] = !!elm
@@ -233,7 +234,7 @@
   }
 
   WebApp._getButton = function (selector) {
-    var elm = document.querySelector(selector)
+    const elm = document.querySelector(selector)
     return elm
   }
 
@@ -272,7 +273,7 @@
   }
 
   WebApp._getRepeatButton = function () {
-    var elm = this._getButton('#transport music-button[icon-name=repeat]')
+    let elm = this._getButton('#transport music-button[icon-name=repeat]')
     if (!elm) {
       elm = this._getButton('#transport music-button[icon-name=repeatone]')
     }
@@ -280,11 +281,11 @@
   }
 
   WebApp._getRepeatState = function () {
-    var button = this._getRepeatButton()
-    var state = Nuvola.PlayerRepeat.NONE
+    const button = this._getRepeatButton()
+    let state = Nuvola.PlayerRepeat.NONE
     if (button) {
       if (button.attributes['icon-name'].value === 'repeat' &&
-          button.attributes['variant'].value === 'accent') {
+          button.attributes.variant.value === 'accent') {
         state = Nuvola.PlayerRepeat.PLAYLIST
       } else if (button.attributes['icon-name'].value === 'repeatone') {
         state = Nuvola.PlayerRepeat.TRACK
@@ -302,7 +303,7 @@
   }
 
   WebApp._onActionActivated = function (emitter, name, param) {
-    var button = null
+    let button = null
     switch (name) {
     /* Base media player actions */
       case PlayerAction.TOGGLE_PLAY:
@@ -330,11 +331,11 @@
       case PlayerAction.SEEK:
         maestro.seekTo(param / 1000000.0)
         break
-      case PlayerAction.CHANGE_VOLUME:
-        var control = this._getVolumeSlider()
+      case PlayerAction.CHANGE_VOLUME: {
+        let control = this._getVolumeSlider()
         if (!control) {
           // Try opening the control, and try again.
-          var elm = this._getVolumeButton()
+          const elm = this._getVolumeButton()
           if (elm) Nuvola.clickOnElement(elm)
           control = this._getVolumeSlider()
 
@@ -352,6 +353,7 @@
           if (this.autoCloseVolume > 0) this.autoCloseVolume = 5
         }
         break
+      }
       case ACTION_THUMBS_UP:
         button = this._getThumbsUpButton()
         if (button) Nuvola.clickOnElement(button)
