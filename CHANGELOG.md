@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.12 - unreleased
------------------
+5.12 - April 11th, 2021
+-----------------------
 
   * Add Japanese region support. Issue: tiliado/nuvola-app-amazon-cloud-player#46
 
