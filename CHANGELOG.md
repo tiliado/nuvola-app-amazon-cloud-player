@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.13 - July 31st, 2021
+----------------------
+
   * Deprecate service until Nuvola is ported to a new web engine. Issue: tiliado/nuvolaplayer#744
 
 5.12 - April 11th, 2021
