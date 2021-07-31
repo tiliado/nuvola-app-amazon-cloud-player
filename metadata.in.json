@@ -12,6 +12,7 @@
   "license": "2-Clause BSD-license",
   "allowed_uri": "^https?://(music.amazon.[a-z.]+/#?.*|www.amazon.[a-z.]+/[ga]p/.*)$",
   "requirements": "Chromium[71] Codec[MP3] Feature[MSE] Feature[Widevine]",
+  "deprecation_url": "https://github.com/tiliado/nuvolaplayer/issues/744",
   "build": {
     "icons": [
       "src/icon.svg SCALABLE 64 128 256",
